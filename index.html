@@ -16,5 +16,24 @@
     <button id="login-page">Вход</button>
     <button id="content-page">Перейти к контенту</button>
 
+    <script>
+        document.getElementById('content-page').addEventListener('click', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                window.location.href = 'content.html';
+            } else {
+                alert('Вы не авторизованы! Сначала войдите в систему.');
+            }
+        });
+
+        document.getElementById('register-page').addEventListener('click', () => {
+            window.location.href = 'register.html';
+        });
+
+        document.getElementById('login-page').addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+    </script>
+
 </body>
 </html>

@@ -31,10 +31,11 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    background-color: #218838;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #b1b1b1;
 }
 
 #logout-btn {
