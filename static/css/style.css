@@ -1,37 +1,42 @@
+/* === БАЗОВЫЙ СТИЛЬ === */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     text-align: center;
     padding: 20px;
+    margin: 0;
 }
 
 h1, h2 {
     color: #333;
+    font-size: 2em;
 }
 
 p {
-    font-size: 18px;
+    font-size: 1.1em;
     color: #555;
 }
-
 
 input, button {
     margin: 10px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 1em;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
 }
 
 button {
     display: block;
-    width: 200px;
     margin: 10px auto;
     padding: 10px;
-    font-size: 18px;
+    font-size: 1.1em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
     background-color: #218838;
+    color: white;
 }
 
 button:hover {
@@ -47,9 +52,10 @@ button:hover {
 }
 
 .image {
-    max-width: 200px;
+    max-width: 90%;
+    height: auto;
     border-radius: 10px;
-    margin: 10px;
+    margin: 10px auto;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -78,4 +84,54 @@ button:hover {
 
 #content-page:hover {
     background-color: #d39e00;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 1024px) {
+    h1, h2 {
+        font-size: 1.7em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    h1, h2 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 0.95em;
+    }
+
+    button {
+        font-size: 0.95em;
+        padding: 9px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1, h2 {
+        font-size: 1.3em;
+    }
+
+    p {
+        font-size: 0.9em;
+    }
+
+    input, button {
+        width: 95%;
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .image {
+        max-width: 100%;
+    }
 }

@@ -133,55 +133,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для отображения списка сообщений
     async function loadMessages(blogId) {
-        const response = await getMessages(blogId); // Получаем данные от getMessages
-        const messages = response.messages; // Предполагаем, что сервер возвращает объект с массивом сообщений в поле 'messages'
-
-        const messagesList = document.getElementById('messagesList');
-        
-        // Показать кнопки для добавления, редактирования и удаления
-        document.getElementById('addMessageBtn').classList.remove('hidden');
-        document.getElementById('editMessageBtn').classList.remove('hidden');
-        document.getElementById('deleteMessageBtn').classList.remove('hidden');
-
-        // Очищаем список сообщений
-        messagesList.innerHTML = '';
-
-        // Если сообщений нет, выводим соответствующее сообщение
-        if (messages.length === 0) {
-            messagesList.innerHTML = '<p>Сообщений нет.</p>';
-            return;
-        }
-
-        // Создаём таблицу, если её нет
-        let table = document.getElementById('messagesTable');
-        if (!table) {
-            table = document.createElement('table');
-            table.id = 'messagesTable';
-            table.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>Выбрать</th>
-                        <th>Сообщение</th>
-                    </tr>
-                </thead>
-                <tbody id="messagesTableBody"></tbody>
-            `;
-            messagesList.appendChild(table);
-        }
-
-        const messagesTableBody = document.getElementById('messagesTableBody');
-        messagesTableBody.innerHTML = ''; // Очищаем старые данные
-
-        // Заполняем таблицу данными
-        messages.forEach(message => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><input type="checkbox" class="message-checkbox" data-id="${message.id}"></td>
-                <td>${message.text}</td>
-            `;
-            messagesTableBody.appendChild(row);
-        });
+    const response = await getMessages(blogId); // Получаем данные от getMessages
+    if (!response || response.message === 'Wrong blog_id!') {
+        alert('Ошибка при получении сообщений: неверный ID блога');
+        return;
     }
+
+    const messages = response.messages; // Предполагаем, что сервер возвращает объект с массивом сообщений в поле 'messages'
+
+    const messagesList = document.getElementById('messagesList');
+    
+    // Показать кнопки для добавления, редактирования и удаления
+    document.getElementById('addMessageBtn').classList.remove('hidden');
+    document.getElementById('editMessageBtn').classList.remove('hidden');
+    document.getElementById('deleteMessageBtn').classList.remove('hidden');
+
+    // Очищаем список сообщений
+    messagesList.innerHTML = '';
+
+    // Если сообщений нет, выводим соответствующее сообщение
+    if (messages.length === 0) {
+        messagesList.innerHTML = '<p>Сообщений нет.</p>';
+        return;
+    }
+
+    // Создаём таблицу, если её нет
+    let table = document.getElementById('messagesTable');
+    if (!table) {
+        table = document.createElement('table');
+        table.id = 'messagesTable';
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Выбрать</th>
+                    <th>Сообщение</th>
+                    <th>Пользователь</th>
+                </tr>
+            </thead>
+            <tbody id="messagesTableBody"></tbody>
+        `;
+        messagesList.appendChild(table);
+    }
+
+    const messagesTableBody = document.getElementById('messagesTableBody');
+    messagesTableBody.innerHTML = ''; // Очищаем старые данные
+
+    // Заполняем таблицу данными
+    messages.forEach(message => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><input type="checkbox" class="message-checkbox" data-id="${message.id}"></td>
+            <td>${message.text}</td>
+            <td>${message.username || 'Неизвестно'}</td>
+        `;
+        messagesTableBody.appendChild(row);
+    });
+}
+
 
     // Функция для добавления нового сообщения
     document.getElementById('addMessageBtn').addEventListener('click', async () => {
